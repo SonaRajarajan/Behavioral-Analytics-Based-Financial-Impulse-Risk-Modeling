@@ -1,4 +1,4 @@
-# Financial Impulse Detection System - VR Sona (22MIA1161)
+# Behavioral Analytics-Based Financial Impulse Risk Modeling - VR Sona (22MIA1161)
 
 An AI-powered behavioral analytics platform that detects impulsive financial patterns using machine learning and behavioral signal engineering.
 
@@ -311,6 +311,7 @@ uvicorn app:app --reload
 cd impulse-frontend
 npm install
 npm run dev
+
 
 
 
