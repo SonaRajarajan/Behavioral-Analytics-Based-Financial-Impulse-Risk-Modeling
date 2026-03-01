@@ -17,6 +17,141 @@ The objective of this project is to:
 This system combines behavioral psychology + anomaly detection + volatility modeling to classify financial behavior into meaningful categories.
 
 ---
+## Synthetic Data Generation & Feature Engineering
+
+Since real personal financial transaction data is sensitive and restricted, this project uses a carefully designed synthetic transaction dataset that mimics real-world financial behavior patterns.
+
+---
+
+### How the Dataset Was Generated
+
+The synthetic dataset was generated using controlled statistical distributions and behavioral assumptions to simulate realistic financial patterns.
+
+#### Transaction Amount Distribution
+
+Transaction values were generated using:
+
+- Normal distribution for regular spending
+- Log-normal distribution for high-value purchases
+- Random anomaly injection for outlier detection testing
+
+Assumptions:
+- Most daily transactions fall within a moderate spending range.
+- Occasional high-value transactions simulate impulse events.
+- Standard deviation reflects volatility in spending behavior.
+
+---
+
+#### Time-Based Behavioral Rules
+
+To simulate behavioral psychology patterns:
+
+- Late-night transactions were probabilistically assigned between 9 PM – 5 AM.
+- Weekend spending was assigned higher discretionary spending weights.
+- End-of-month days (after 25th) were assigned increased probability for clustered spending.
+
+Assumptions:
+- Emotional spending is more likely at night.
+- Weekends increase discretionary purchases.
+- Month-end may trigger budget exhaustion or bulk payments.
+
+---
+
+#### Frequency Modeling
+
+Transaction frequency was generated using:
+
+- Poisson distribution to simulate realistic transaction counts.
+- Variable transaction density across daily, weekly, and monthly periods.
+
+Assumptions:
+- Higher frequency correlates with increased impulsivity.
+- Sudden transaction spikes indicate potential anomaly behavior.
+
+---
+
+## Dataset Size
+
+- Total Records: 10,000+ synthetic transactions
+- Time Span Simulated: 12 months
+- Categories Included:
+  - Food
+  - Transport
+  - Shopping
+  - Bills
+  - Entertainment
+  - Other
+
+---
+
+## Feature Engineering
+
+The following behavioral features were derived from raw transactions:
+
+| Feature Name        | Description |
+|---------------------|------------|
+| `mean_spend`        | Average transaction value |
+| `std_spend`         | Spending volatility |
+| `night_ratio`       | % of transactions between 9PM–5AM |
+| `weekend_ratio`     | % of weekend transactions |
+| `end_month_ratio`   | % of transactions after 25th |
+| `frequency_spike`   | Total transaction count in selected period |
+| `anomaly_score`     | Isolation Forest anomaly detection score |
+| `impulse_risk_score`| Final weighted behavioral risk score |
+
+---
+
+## Risk Score Construction
+
+The impulse risk score is calculated as a weighted aggregation of:
+
+- Anomaly intensity (30%)
+- Spending volatility (30%)
+- Transaction frequency (20%)
+- Night behavior ratio (10%)
+- Weekend behavior ratio (10%)
+
+The final score is normalized to a 0–100% scale.
+
+---
+
+## Behavioral Assumptions Embedded
+
+The model assumes:
+
+- High volatility = unstable spending control
+- Night-heavy spending = emotional decision bias
+- High anomaly score = irregular purchase patterns
+- Month-end clustering = budget pressure behavior
+- High frequency = impulsive tendency
+
+These behavioral signals collectively determine classification into:
+
+- High Impulse Behaviour
+- High Volatility Pattern
+- Late-Night Emotional Spending
+- Weekend-Driven Spending
+- Controlled Financial Behaviour
+
+---
+
+## Why Synthetic Data?
+
+Using synthetic data ensures:
+
+- No privacy violations
+- Controlled experimentation
+- Reproducibility
+- Safe model evaluation
+- Transparent behavioral simulation
+
+---
+
+This dataset enables the system to realistically simulate behavioral finance scenarios while maintaining ethical data practices.
+
+
+---
+
 
 ## What This System Does
 
@@ -126,10 +261,6 @@ financial-impulse-detection/
 
 <img width="1451" height="828" alt="image" src="https://github.com/user-attachments/assets/0d98d99f-5f05-49f7-a4a4-54166cd35b22" />
 
-<img width="708" height="371" alt="image" src="https://github.com/user-attachments/assets/076f9647-2eda-42ec-9c17-3050b117edd1" />
-
-<img width="700" height="445" alt="image" src="https://github.com/user-attachments/assets/9aac0b4f-463c-46eb-a257-510781faca83" />
-
 <img width="1414" height="460" alt="image" src="https://github.com/user-attachments/assets/cb044268-1e4a-4ea7-91ca-2905f3458926" />
 
 ---
@@ -180,6 +311,7 @@ uvicorn app:app --reload
 cd impulse-frontend
 npm install
 npm run dev
+
 
 
 
